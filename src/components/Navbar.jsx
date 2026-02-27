@@ -1,6 +1,15 @@
+import { appleImg } from "../utils"
+
 const Navbar = () => {
   return (
-    <div>Navbar</div>
+    <header>
+        <nav>
+            <img src={appleImg} alt="apple" width={14} height={18}/>
+            <div>
+                {[]}
+            </div>
+        </nav>
+    </header>
   )
 }
 
