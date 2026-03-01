@@ -20,7 +20,8 @@ const {isEnd, isLastVideo, startPlay, videoId,
     isPlaying } = video;
 
     useEffect(() => {
-
+     const currentProgress =0;
+     let span = videoSpanRef.current;
     }, [videoId, startPlay])
 
   return (
