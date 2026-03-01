@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         blue: "#2997ff",
-        grey: {
+        gray: {
           DEFAULT: "#86868b",
           100: "#94928d",
           200: "#afafaf",
