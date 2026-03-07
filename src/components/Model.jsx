@@ -1,10 +1,12 @@
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 import ModelView from "./ModelView";
 import { useRef, useState } from "react";
 import { yellowImg } from "../utils";
 import * as THREE from 'three';
 
+gsap.registerPlugin(ScrollTrigger);
 
 const Model = () => {
 
@@ -28,7 +30,15 @@ const Model = () => {
     const[largeRotation, setLargeRotation] = useState(0);
 
     useGSAP(() => {
-        gsap.to('#heading',{opacity: 1, y: 0, duration: 0.5})
+        gsap.to('#heading', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+                trigger: '#heading',
+            }
+        })
     }, []);
   return (
     <section className="common-padding">
@@ -38,7 +48,28 @@ const Model = () => {
             </h1>
             <div className="flex flex-col-1 items-center mt-5">
                 <div className="w-full h-[75vh] md:[90vh] overflow-hidden relative">
-                    <ModelView/>
+                    <ModelView
+                    index={1}
+                    groupRef={small}
+                    gsapType="view1"
+                    controlRef={cameraControlSmall}
+                    setRotationState={setSmallRotation}
+                    item={model}
+                    size={size}
+                    />
+                    <ModelView
+                    index={2}
+                    groupRef={large}
+                    gsapType="view1"
+                    controlRef={cameraControlLarge}
+                    setRotationState={setLargeRotation}
+                    item={model}
+                    size={size}
+                    />
+
+                    <canvas>
+                        <View.port/>
+                    </canvas>
                 </div>
             </div>
         </div>
