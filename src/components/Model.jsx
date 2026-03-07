@@ -60,17 +60,29 @@ const Model = () => {
                     <ModelView
                     index={2}
                     groupRef={large}
-                    gsapType="view1"
+                    gsapType="view2"
                     controlRef={cameraControlLarge}
                     setRotationState={setLargeRotation}
                     item={model}
                     size={size}
                     />
 
-                    <canvas>
+                    <canvas
+                    className="w-full h-full"
+                    style={{
+                        position: 'fixed',
+                        left: 0,
+                        right: 0,
+                        top:0,
+                        bottom:0,
+                        overflow: 'hidden'
+                    }}
+                    eventSource={document.getElementById('root')}
+                    >
                         <View.port/>
                     </canvas>
                 </div>
+                <div></div>
             </div>
         </div>
     </section>
