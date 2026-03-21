@@ -13,6 +13,21 @@ export default defineConfig([
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+    ignorePatterns: ['dist', ' eslintrc.cjs'],
+parserOptions: { ecmaVersion: 'latest'
+, sourceType:
+'module' },
+settings: { react: { version: '18.2' } }, 
+  plugins: ['react-refresh', '@react-three'],
+rules: {
+'react/jsx-no-target-blank': 'off',
+'react-refresh/only-export-components': [
+'warn',
+{ allowConstantExport: true },
+1,  
+]
+},
+
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
