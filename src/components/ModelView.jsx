@@ -4,7 +4,8 @@ import Lights from './Light';
 import { Suspense } from 'react';
 import Iphone from './Iphone';
 import * as THREE from 'three';
-const ModelView = ({index, groupRef, gsapType, controlRef, setRotationSize, size, item}) => {
+import Loader from './Loader';
+const ModelView = ({index, groupRef, gsapType, controlRef, setRotationState, size, item}) => {
   return (
     <View
     index={index}
@@ -27,7 +28,7 @@ const ModelView = ({index, groupRef, gsapType, controlRef, setRotationSize, size
       onEnd={() => setRotationState(controlRef.current.getAzimuthalAngle())}
       />
    <group ref={groupRef} name={`${index === 1} ? 'small' : 'large'`}>
-   <Suspense fallback={<Html><div>Loading</div></Html>}>
+   <Suspense fallback={<Loader/>}>
    <Iphone
      scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
      item={item}
