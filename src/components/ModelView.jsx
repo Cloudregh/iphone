@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { Html, OrbitControls, PerspectiveCamera, View } from '@react-three/drei';
-import Lights from './Light';
+import Light from './Light';
 import { Suspense } from 'react';
 import Iphone from './Iphone';
 import * as THREE from 'three';
