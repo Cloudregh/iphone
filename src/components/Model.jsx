@@ -2,11 +2,13 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import ModelView from "./ModelView";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { yellowImg } from "../utils";
 import * as THREE from 'three';
-import { models } from "../constants";
-import { label } from "three/tsl";
+import { models, sizes } from "../constants";
+import { animateWithGsapTimeline } from "../utils/animations";
+import { Canvas } from "@react-three/fiber";
+import { View } from "@react-three/drei";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,17 +33,24 @@ const Model = () => {
     const[smallRotation, setSmallRotation] = useState(0);
     const[largeRotation, setLargeRotation] = useState(0);
     
-    const tl = gsap.timeline();
+    const tl = useRef(gsap.timeline());
 
     useEffect(() => {
-        if( size === 'small'){
+        tl.current.clear();
+        tl.current.pause(0);
 
+        if (size === 'large') {
+            animateWithGsapTimeline(tl.current, large, largeRotation, '#view1', '#view2', {
+                transform: 'translateX(-100%)',
+                duration: 2
+            })
+        } else {
+            animateWithGsapTimeline(tl.current, small, smallRotation, '#view1', '#view2', {
+                transform: 'translateX(0)',
+                duration: 2
+            })
         }
-
-        if (size === 'large'){
-            
-        }
-    }, []);
+    }, [size, smallRotation, largeRotation]);
 
     useGSAP(() => {
         gsap.to('#heading', {
@@ -60,8 +69,8 @@ const Model = () => {
             <h1 id='heading' className="section-heading">
                 Take a closer look.
             </h1>
-            <div className="flex flex-col-1 items-center mt-5">
-                <div className="w-full h-[75vh] md:[90vh] overflow-hidden relative">
+            <div className="flex flex-col items-center mt-5">
+                <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
                     <ModelView
                     index={1}
                     groupRef={small}
@@ -81,20 +90,20 @@ const Model = () => {
                     size={size}
                     />
 
-                    <canvas
+                    <Canvas
                     className="w-full h-full"
                     style={{
-                        position: 'fixed',
+                        position: 'absolute',
                         left: 0,
                         right: 0,
-                        top:0,
-                        bottom:0,
+                        top: 0,
+                        bottom: 0,
                         overflow: 'hidden'
                     }}
                     eventSource={document.getElementById('root')}
                     >
-                        <View.port/>
-                    </canvas>
+                        <View.Port />
+                    </Canvas>
                 </div>
                 <div className="mx-auto w-full">
                     <p className="text-sm font-light text-center mb-5">{model.title}</p>
