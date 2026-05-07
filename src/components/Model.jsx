@@ -15,6 +15,8 @@ gsap.registerPlugin(ScrollTrigger);
 const Model = () => {
 
     const [size, setSize] = useState('small');
+    const [activeSize, setActiveSize] = useState('small');
+    const canvasWrapperRef = useRef(null);
     const [model, setModel] = useState({
         title:"iPhone 15 pro in Natural Titanium",
         color:['#8F8A81', '#FFE7B9', '#6F6C64'],
@@ -36,21 +38,31 @@ const Model = () => {
     const tl = useRef(gsap.timeline());
 
     useEffect(() => {
+        if (size === activeSize) return;
+
+        if (small.current) small.current.rotation.y = 0;
+        if (large.current) large.current.rotation.y = 0;
+
         tl.current.clear();
-        tl.current.pause(0);
+        tl.current.seek(0);
 
         if (size === 'large') {
-            animateWithGsapTimeline(tl.current, large, largeRotation, '#view1', '#view2', {
+            animateWithGsapTimeline(tl.current, small, 0, '#view1', '#view2', {
                 transform: 'translateX(-100%)',
                 duration: 2
             })
         } else {
-            animateWithGsapTimeline(tl.current, small, smallRotation, '#view1', '#view2', {
+            animateWithGsapTimeline(tl.current, large, 0, '#view2', '#view1', {
                 transform: 'translateX(0)',
                 duration: 2
             })
         }
-    }, [size, smallRotation, largeRotation]);
+
+        tl.current.eventCallback('onComplete', () => {
+            setActiveSize(size);
+        });
+        tl.current.play(0);
+    }, [size, activeSize]);
 
     useGSAP(() => {
         gsap.to('#heading', {
@@ -70,7 +82,10 @@ const Model = () => {
                 Take a closer look.
             </h1>
             <div className="flex flex-col items-center mt-5">
-                <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
+                <div
+                className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative"
+                ref={canvasWrapperRef}
+                >
                     <ModelView
                     index={1}
                     groupRef={small}
@@ -78,7 +93,7 @@ const Model = () => {
                     controlRef={cameraControlSmall}
                     setRotationState={setSmallRotation}
                     item={model}
-                    size={size}
+                    size={activeSize}
                     />
                     <ModelView
                     index={2}
@@ -87,7 +102,7 @@ const Model = () => {
                     controlRef={cameraControlLarge}
                     setRotationState={setLargeRotation}
                     item={model}
-                    size={size}
+                    size={activeSize}
                     />
 
                     <Canvas
@@ -100,7 +115,7 @@ const Model = () => {
                         bottom: 0,
                         overflow: 'hidden'
                     }}
-                    eventSource={document.getElementById('root')}
+                    eventSource={canvasWrapperRef}
                     >
                         <View.Port />
                     </Canvas>

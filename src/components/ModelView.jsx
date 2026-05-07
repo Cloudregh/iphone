@@ -5,6 +5,7 @@ import Iphone from './Iphone';
 import * as THREE from 'three';
 import Loader from './Loader';
 const ModelView = ({index, groupRef, gsapType, controlRef, setRotationState, size, item}) => {
+  const isActive = (size === 'small' && index === 1) || (size === 'large' && index === 2)
   return (
     <View
     index={index}
@@ -14,14 +15,18 @@ const ModelView = ({index, groupRef, gsapType, controlRef, setRotationState, siz
    {/* Ambient Light */}
    <ambientLight intensity={0.3}/>
 
-   <PerspectiveCamera makeDefault position={[0, 0, 4]} />
+   <PerspectiveCamera makeDefault={isActive} position={[0, 0, 4]} />
 
    <Light/>
    <OrbitControls
-      makeDefault
+      makeDefault={isActive}
+      enabled={isActive}
       ref={controlRef}
       enableZoom={false}
+      zoomSpeed={0}
       enablePan={false}
+      minDistance={4}
+      maxDistance={4}
       rotateSpeed={0.4}
       target={new THREE.Vector3(0, 0, 0)}
       onEnd={() => setRotationState(controlRef.current.getAzimuthalAngle())}
