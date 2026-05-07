@@ -5,16 +5,17 @@ License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 Source: https://sketchfab.com/3d-models/apple-iphone-15-pro-max-black-df17520841214c1792fb8a44c6783ee7
 Title: Apple iPhone 15 Pro Max Black
 */
-import * as THREE from 'three';
-import React, { useEffect, useRef } from 'react'
-import { useGLTF, useTexture } from '@react-three/drei'
 
+import * as THREE from 'three';
+import React, { useEffect, useRef } from "react";
+import { useGLTF, useTexture } from "@react-three/drei";
 
 function Model(props) {
-  const { nodes, materials } = useGLTF('/models/scene.glb');
+  const { nodes, materials } = useGLTF("/models/scene.glb");
+
   const texture = useTexture(props.item.img);
 
-  useEffect(() => {
+    useEffect(() => {
       Object.entries(materials).map((material) => {
         // these are the material names that can't be changed color
         if (
@@ -29,7 +30,7 @@ function Model(props) {
         material[1].needsUpdate = true;
       });
     }, [materials, props.item]);
-  return (
+     return (
     <group {...props} dispose={null}>
       <mesh
         castShadow
@@ -57,6 +58,62 @@ function Model(props) {
         receiveShadow
         geometry={nodes.MrMmlCAsAxJpYqQ_0.geometry}
         material={materials.dxCVrUCvYhjVxqy}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.wqbHSzWaUxBCwxY_0.geometry}
+        material={materials.MHFGNLrDQbTNima}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.QvGDcbDApaGssma.geometry}
+        material={materials.kUhjpatHUvkBwfM}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.vFwJFNASGvEHWhs.geometry}
+        material={materials.RJoymvEsaIItifI}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.evAxFwhaQUwXuua.geometry}
+        material={materials.KSIxMqttXxxmOYl}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.wqbHSzWaUxBCwxY_0.geometry}
+        material={materials.MHFGNLrDQbTNima}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.QvGDcbDApaGssma.geometry}
+        material={materials.kUhjpatHUvkBwfM}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.vFwJFNASGvEHWhs.geometry}
+        material={materials.RJoymvEsaIItifI}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.evAxFwhaQUwXuua.geometry}
+        material={materials.KSIxMqttXxxmOYl}
         scale={0.01}
       />
       <mesh
@@ -121,7 +178,7 @@ function Model(props) {
         geometry={nodes.CfghdUoyzvwzIum.geometry}
         material={materials.jpGaQNgTtEGkTfo}
         scale={0.01}
-      />
+        />
       <mesh
         castShadow
         receiveShadow
@@ -143,7 +200,7 @@ function Model(props) {
         material={materials.pIJKfZsazmcpEiU}
         scale={0.01}
       >
-       <meshStandardMaterial roughness={1} map={texture}/>     
+        <meshStandardMaterial roughness={1} map={texture} />
       </mesh>
       <mesh
         castShadow
@@ -151,7 +208,7 @@ function Model(props) {
         geometry={nodes.vELORlCJixqPHsZ.geometry}
         material={materials.zFdeDaGNRwzccye}
         scale={0.01}
-      />
+        />
       <mesh
         castShadow
         receiveShadow
@@ -225,6 +282,34 @@ function Model(props) {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.WJwwVjsahIXbJpU.geometry}
+        material={materials.yhcAXNGcJWCqtIS}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.YfrJNXgMvGOAfzz.geometry}
+        material={materials.bCgzXjHOanGdTFV}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DCLCbjzqejuvsqH.geometry}
+        material={materials.vhaEJjZoqGtyLdo}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.CdalkzDVnwgdEhS.geometry}
+        material={materials.jlzuBkUzuJqgiAK}
+        scale={0.01}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.NtjcIgolNGgYlCg.geometry}
         material={materials.PpwUTnTFZJXxCoE}
         scale={0.01}
@@ -251,12 +336,9 @@ function Model(props) {
         scale={0.01}
       />
     </group>
-  )
+     );
 }
 
 export default Model;
 
-useGLTF.preload('/models/scene.glb')
-
-
-
+useGLTF.preload("/models/scene.glb");
